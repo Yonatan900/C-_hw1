@@ -9,26 +9,26 @@ namespace Ex01_02
 
         static void Main()
         {
-            PrintStartersDiamond();
+            printStartersDiamond();
         }
 
-        static void PrintStartersDiamond()
+        static void printStartersDiamond()
         {
-            PrintDiamondRecursive(k_StartNumOfAsteriskInLine, k_MaxNumOfAsteriskInLine);
+            printDiamondRecursive(k_StartNumOfAsteriskInLine, k_MaxNumOfAsteriskInLine);
         }
 
-        public static void PrintDiamondRecursive(int i_NumOfAsterisk, int i_MaxNumOfAsterisk)
+        public static void printDiamondRecursive(int i_NumOfAsterisk, int i_MaxNumOfAsterisk)
         {
-            PrintDiamondLine(i_NumOfAsterisk, i_MaxNumOfAsterisk);
+            printDiamondLine(i_NumOfAsterisk, i_MaxNumOfAsterisk);
 
             if (i_NumOfAsterisk < i_MaxNumOfAsterisk)
             {
-                PrintDiamondRecursive(i_NumOfAsterisk + 2, i_MaxNumOfAsterisk);
-                PrintDiamondLine(i_NumOfAsterisk, i_MaxNumOfAsterisk);
+                printDiamondRecursive(i_NumOfAsterisk + 2, i_MaxNumOfAsterisk);
+                printDiamondLine(i_NumOfAsterisk, i_MaxNumOfAsterisk);
             }
         }
 
-        static void PrintDiamondLine(int i_NumOfAsterisk, int i_MaxNumOfAsterisk)
+        static void printDiamondLine(int i_NumOfAsterisk, int i_MaxNumOfAsterisk)
         {
             for (int i = 0; i < i_MaxNumOfAsterisk - i_NumOfAsterisk; ++i)
             {
