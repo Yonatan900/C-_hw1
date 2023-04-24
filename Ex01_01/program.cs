@@ -31,11 +31,13 @@ namespace Ex01_01
             }
 
             Console.WriteLine("There are {0} number that are power of 2", countPowersOfTwo(i_InputNumbersDecimal));
-            Console.WriteLine("There are {0} zeroes in average in input.", countPowersOfTwo(i_InputNumbersBinary));
-            Console.WriteLine("There are {0} ones in average in input.", countPowersOfTwo(i_InputNumbersBinary));
-            Console.WriteLine("There are {0} numbers devided by 4.", countPowersOfTwo(i_InputNumbersDecimal));
-            Console.WriteLine("There are {0} numbers where the digits are decreasing sequence.", countPowersOfTwo(i_InputNumbersDecimal));
-            Console.WriteLine("There are {0} palindrome numbers.", countPowersOfTwo(i_InputNumbersDecimal));
+            Console.WriteLine("There are {0} zeroes in average in input.", zeroesAverage(i_InputNumbersBinary));
+            Console.WriteLine("There are {0} ones in average in input.", onesAverage(i_InputNumbersBinary));
+            Console.WriteLine("There are {0} numbers devided by 4.", countDevidedByFour(i_InputNumbersDecimal));
+            Console.WriteLine("There are {0} numbers where the digits are decreasing sequence.", countDecOrder(i_InputNumbersDecimal));
+            Console.WriteLine("There are {0} palindrome numbers.", countPalindrome(i_InputNumbersDecimal));
+            Console.WriteLine("Press enter to quit.");
+            Console.ReadLine();
         }
 
         static void readInputNumbers(int i_NumOfInputsToRead, out int[] o_BinaryInputHolder, out int[] o_DecimalInputOrder)
