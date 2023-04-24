@@ -132,9 +132,9 @@ namespace Ex01_01
             return countTwosPowers;
         }
 
-        static int zeroesAverage(string[] i_IntegerNumbersArray)
+        static double zeroesAverage(string[] i_IntegerNumbersArray)
         {
-            int countZeroes = 0;
+            double countZeroes = 0;
 
             foreach (string number in i_IntegerNumbersArray)
             {
@@ -144,9 +144,9 @@ namespace Ex01_01
             return countZeroes / i_IntegerNumbersArray.Length;
         }
 
-        static int onesAverage(string[] i_IntegerNumbersArray)
+        static double onesAverage(string[] i_IntegerNumbersArray)
         {
-            int countOnes = 0;
+            double countOnes = 0;
 
             foreach (string number in i_IntegerNumbersArray)
             {
