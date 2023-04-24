@@ -10,16 +10,16 @@ namespace Ex01_03
 
         static void Main()
         {
-            PrintStartersDiamond();
+            printStartersDiamond();
         }
 
-        static void PrintStartersDiamond()
+        static void printStartersDiamond()
         {
-            s_MaxNumOfAsteriskInLine = GetMaxAsterisk();
-            Ex01_02.Program.PrintDiamondRecursive(k_StartNumOfAsteriskInLine, s_MaxNumOfAsteriskInLine);
+            s_MaxNumOfAsteriskInLine = getMaxAsterisk();
+            Ex01_02.Program.printDiamondRecursive(k_StartNumOfAsteriskInLine, s_MaxNumOfAsteriskInLine);
         }
 
-        static int GetMaxAsterisk()
+        static int getMaxAsterisk()
         {
             int numberOfLines;
             string numberOfLinesString;
