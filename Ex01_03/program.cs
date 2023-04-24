@@ -10,7 +10,6 @@ namespace Ex01_03
 
         static void Main()
         {
-
             PrintStartersDiamond();
         }
 
@@ -18,7 +17,6 @@ namespace Ex01_03
         {
             s_MaxNumOfAsteriskInLine = GetMaxAsterisk();
             Ex01_02.Program.PrintDiamondRecursive(k_StartNumOfAsteriskInLine, s_MaxNumOfAsteriskInLine);
-
         }
 
         static int GetMaxAsterisk()
@@ -28,14 +26,13 @@ namespace Ex01_03
 
             Console.WriteLine("Enter number of lines");
             numberOfLinesString = Console.ReadLine();
-            while(!int.TryParse(numberOfLinesString, out o_NumberOfLines))
+
+            while (!int.TryParse(numberOfLinesString, out o_NumberOfLines))
             {
                 Console.WriteLine("Only number please.");
             }
 
             return o_NumberOfLines;
         }
-
     }
 }
-
