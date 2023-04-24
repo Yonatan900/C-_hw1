@@ -4,7 +4,7 @@ namespace Ex01_05
 {
     public class Program
     {
-        private static String s_sixDigit;
+        private static string s_SixDigit;
 
         static void Main()
         {
@@ -13,126 +13,106 @@ namespace Ex01_05
 
         static void runProgram()
         {
-            readInputNumber(out s_sixDigit);
-            printFunctionOutputData(s_sixDigit);
+            readInputNumber(out s_SixDigit);
+            printFunctionOutputData(s_SixDigit);
         }
-        static void readInputNumber(out String o_sixDigit)
-        {
 
+        static void readInputNumber(out string o_SixDigit)
+        {
             Console.WriteLine("Please enter a 6 digit number.");
-            o_sixDigit = getValidSixDigitNumberFromUser();
-
+            o_SixDigit = getValidSixDigitNumberFromUser();
         }
 
-        static String getValidSixDigitNumberFromUser()
+        static string getValidSixDigitNumberFromUser()
         {
-            String validSixDigitNumber;
-            string inputNumber = Console.ReadLine();
+            string validSixDigitNumber = Console.ReadLine();
 
-            while (!checkNumberValidity(inputNumber, out validSixDigitNumber))
+            while (!checkNumberValidity(validSixDigitNumber))
             {
                 Console.WriteLine("Your input should be 6 digits number only!");
-                inputNumber = Console.ReadLine();
+                validSixDigitNumber = Console.ReadLine();
             }
 
             return validSixDigitNumber;
         }
 
-        static bool checkNumberValidity(string i_InputToCheck, out String o_SixDigitNumber)
+        static bool checkNumberValidity(string i_InputToCheck)
         {
-            bool representNumber = int.TryParse(i_InputToCheck, out int _);
-            o_SixDigitNumber = i_InputToCheck;
+            bool representNumber = int.TryParse(i_InputToCheck, out _);
             bool sixDigitLength = i_InputToCheck.Length == 6;
-            bool o_IsInputValid = representNumber && sixDigitLength;
 
-            return o_IsInputValid;
+            return representNumber && sixDigitLength;
         }
 
-
-
-
-
-        static void printFunctionOutputData(String i_sixDigit)
+        static void printFunctionOutputData(string i_SixDigit)
         {
-            int unitsPlaceDigit = i_sixDigit[5];
+            char unitsPlaceDigit = i_SixDigit[5];
 
-
-            Console.WriteLine("There are {0} digits that are bigger than {1}", countBiggerThanUnitsDigit(i_sixDigit), unitsPlaceDigit);
-            Console.WriteLine("There lowest digit is {0}.", getLowestDigit(i_sixDigit));
-            Console.WriteLine("There are {0} digits that are divisble By three.", countDivisbleByThree(i_sixDigit));
-            Console.WriteLine("There digits average is {0}.", getDigitsAverage(i_sixDigit));
-
+            Console.WriteLine("There are {0} digits that are bigger than {1}", countBiggerThanUnitsDigit(i_SixDigit), unitsPlaceDigit);
+            Console.WriteLine("There lowest digit is {0}.", getLowestDigit(i_SixDigit));
+            Console.WriteLine("There are {0} digits that are divisble By three.", countDivisbleByThree(i_SixDigit));
+            Console.WriteLine("There digits average is {0}.", getDigitsAverage(i_SixDigit));
         }
 
-        static int countBiggerThanUnitsDigit(String i_sixDigit)
+        static int countBiggerThanUnitsDigit(string i_SixDigit)
         {
-
-
-            char unitsDigit = i_sixDigit[5];
-            int count = 0;
+            char unitsDigit = i_SixDigit[5];
+            int countBiggerDigits = 0;
 
             for (int i = 0; i < 5; i++)
             {
-                if (i_sixDigit[i] > unitsDigit)
+                if (i_SixDigit[i] > unitsDigit)
                 {
-                    count++;
+                    countBiggerDigits++;
                 }
             }
 
-            return count;
-
-
+            return countBiggerDigits;
         }
-        static char getLowestDigit(String i_sixDigit)
+
+        static char getLowestDigit(string i_SixDigit)
         {
-            char minDigit = i_sixDigit[0];
-            foreach (char digit in i_sixDigit)
+            char minDigit = i_SixDigit[0];
+
+            foreach (char digit in i_SixDigit)
             {
                 if (minDigit > digit)
                 {
                     minDigit = digit;
                 }
-
             }
-
-
 
             return minDigit;
         }
 
-
-
-        static int countDivisbleByThree(string i_sixDigit)
+        static int countDivisbleByThree(string i_SixDigit)
         {
-            int count = 0;
-            foreach (char digitChar in i_sixDigit)
-            {
-                int digit = (int)Char.GetNumericValue(digitChar);
+            int countDiv = 0;
+            int currentDigitOfNumber;
 
-                if (digit % 3 == 0)
+            foreach (char digitChar in i_SixDigit)
+            {
+                currentDigitOfNumber = (int)char.GetNumericValue(digitChar);
+
+                if (currentDigitOfNumber % 3 == 0)
                 {
-                    count++;
+                    countDiv++;
                 }
             }
 
-            return count;
+            return countDiv;
         }
+
         static double getDigitsAverage(string i_StringToCheck)
         {
             double digitsSum = 0;
-            double digitsAverage;
+
             foreach (char digitChar in i_StringToCheck)
             {
-                digitsSum += Char.GetNumericValue(digitChar);
+                digitsSum += char.GetNumericValue(digitChar);
             }
 
-            digitsAverage = digitsSum / 6;
-
-
-
-            return digitsAverage;
+            return digitsSum / i_StringToCheck.Length;
         }
-
-
     }
 }
