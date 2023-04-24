@@ -5,7 +5,7 @@ namespace Ex01_01
     public class Program
     {
         private const int k_NumOfInputs = 3;
-        private static int[] s_BinaryInputNumbersHolder;
+        private static string[] s_BinaryInputNumbersHolder;
         private static int[] s_BinaryInputNumbersHolderToDecimal;
 
         static void Main()
@@ -19,10 +19,10 @@ namespace Ex01_01
             printFunctionOutputData(s_BinaryInputNumbersHolder, s_BinaryInputNumbersHolderToDecimal);
         }
 
-        static void printFunctionOutputData(int[] i_InputNumbersBinary, int[] i_InputNumbersDecimal)
+        static void printFunctionOutputData(string[] i_InputNumbersBinary, int[] i_InputNumbersDecimal)
         {
-            orderDecIntArray(ref i_InputNumbersBinary);
-            orderDecIntArray(ref i_InputNumbersDecimal);
+            Array.Sort(i_InputNumbersDecimal);
+            Array.Reverse(i_InputNumbersDecimal);
             Console.WriteLine("The decimal represention of the numbers are:");
 
             foreach (int num in i_InputNumbersDecimal)
@@ -30,21 +30,21 @@ namespace Ex01_01
                 Console.WriteLine(num);
             }
 
-            Console.WriteLine("There are {0} number that are power of 2", countPowersOfTwo(i_InputNumbersDecimal));
+            Console.WriteLine("There are {0} number that are power of 2", countPowersOfTwo(i_InputNumbersBinary));
             Console.WriteLine("There are {0} zeroes in average in input.", zeroesAverage(i_InputNumbersBinary));
             Console.WriteLine("There are {0} ones in average in input.", onesAverage(i_InputNumbersBinary));
             Console.WriteLine("There are {0} numbers devided by 4.", countDevidedByFour(i_InputNumbersDecimal));
-            Console.WriteLine("There are {0} numbers where the digits are decreasing sequence.", countDecOrder(i_InputNumbersDecimal));
+            Console.WriteLine("There are {0} numbers where the digits are decreasing sequence.", countNumbersWhereDigitInDecOrder(i_InputNumbersDecimal));
             Console.WriteLine("There are {0} palindrome numbers.", countPalindrome(i_InputNumbersDecimal));
             Console.WriteLine("Press enter to quit.");
             Console.ReadLine();
         }
 
-        static void readInputNumbers(int i_NumOfInputsToRead, out int[] o_BinaryInputHolder, out int[] o_DecimalInputOrder)
+        static void readInputNumbers(int i_NumOfInputsToRead, out string[] o_BinaryInputHolder, out int[] o_DecimalInputOrder)
         {
-            int binaryRepresentOfInputNumber;
+            string binaryRepresentOfInputNumber;
 
-            o_BinaryInputHolder = new int[i_NumOfInputsToRead];
+            o_BinaryInputHolder = new string[i_NumOfInputsToRead];
             o_DecimalInputOrder = new int[i_NumOfInputsToRead];
             Console.WriteLine("Please enter 3 binary numbers,\neach 8 digits.");
 
@@ -55,11 +55,11 @@ namespace Ex01_01
             }
         }
 
-        static int getSingleDecimalInputFromUser(out int o_BinaryRepresentaionHolder)
+        static int getSingleDecimalInputFromUser(out string o_BinaryRepresentaionHolder)
         {
-            o_BinaryRepresentaionHolder = getValidBinaryNumberFromUser();
+            int validInputBinary = getValidBinaryNumberFromUser(out o_BinaryRepresentaionHolder);
 
-            return convertToDecimal(o_BinaryRepresentaionHolder);
+            return convertToDecimal(validInputBinary);
         }
 
         static int convertToDecimal(int i_BinaryNumber)
@@ -77,15 +77,15 @@ namespace Ex01_01
             return decimalValueOfNumber;
         }
 
-        static int getValidBinaryNumberFromUser()
+        static int getValidBinaryNumberFromUser(out string o_InputAsAString)
         {
             int validBinaryNumber;
-            string inputNumber = Console.ReadLine();
+            o_InputAsAString = Console.ReadLine();
 
-            while (!checkNumberValidity(inputNumber, out validBinaryNumber))
+            while (!checkNumberValidity(o_InputAsAString, out validBinaryNumber))
             {
                 Console.WriteLine("Your input should be 8 digits binary number only!");
-                inputNumber = Console.ReadLine();
+                o_InputAsAString = Console.ReadLine();
             }
 
             return validBinaryNumber;
@@ -117,17 +117,11 @@ namespace Ex01_01
             return representBinary;
         }
 
-        static void orderDecIntArray(ref int[] io_IntegerNumbersArray)
-        {
-            Array.Sort(io_IntegerNumbersArray);
-            Array.Reverse(io_IntegerNumbersArray);
-        }
-
-        static int countPowersOfTwo(int[] i_IntegerNumbersArray)
+        static int countPowersOfTwo(string[] i_IntegerNumbersArray)
         {
             int countTwosPowers = 0;
 
-            foreach (int number in i_IntegerNumbersArray)
+            foreach (string number in i_IntegerNumbersArray)
             {
                 if (countDigitAppearanceInNumber('1', number) == 1)
                 {
@@ -138,23 +132,23 @@ namespace Ex01_01
             return countTwosPowers;
         }
 
-        static int zeroesAverage(int[] i_IntegerNumbersArray)
+        static int zeroesAverage(string[] i_IntegerNumbersArray)
         {
-            int countOnes = 0;
+            int countZeroes = 0;
 
-            foreach (int number in i_IntegerNumbersArray)
+            foreach (string number in i_IntegerNumbersArray)
             {
-                countOnes += countDigitAppearanceInNumber('0', number);
+                countZeroes += countDigitAppearanceInNumber('0', number);
             }
 
-            return countOnes / i_IntegerNumbersArray.Length;
+            return countZeroes / i_IntegerNumbersArray.Length;
         }
 
-        static int onesAverage(int[] i_IntegerNumbersArray)
+        static int onesAverage(string[] i_IntegerNumbersArray)
         {
             int countOnes = 0;
 
-            foreach (int number in i_IntegerNumbersArray)
+            foreach (string number in i_IntegerNumbersArray)
             {
                 countOnes += countDigitAppearanceInNumber('1', number);
             }
@@ -162,11 +156,11 @@ namespace Ex01_01
             return countOnes / i_IntegerNumbersArray.Length;
         }
 
-        static int countDigitAppearanceInNumber(char i_Digit, int i_OriginalNumber)
+        static int countDigitAppearanceInNumber(char i_Digit, string i_OriginalNumber)
         {
             int countAppearance = 0;
 
-            foreach (char c in i_OriginalNumber.ToString())
+            foreach (char c in i_OriginalNumber)
             {
                 if (c == i_Digit)
                 {
@@ -192,19 +186,38 @@ namespace Ex01_01
             return countFourMultiples;
         }
 
-        static int countDecOrder(int[] i_IntegerNumbersArray)
+        static int countNumbersWhereDigitInDecOrder(int[] i_IntegerNumbersArray)
         {
-            int numberOfTwosPowers = 0;
+            int countDecOrder = 0;
+            int numberToCheck;
+            int prevDigit;
+            bool isDecOrder;
 
             foreach (int number in i_IntegerNumbersArray)
             {
-                if ((number != 0) && ((number & (number - 1)) == 0))
+                isDecOrder = true;
+                prevDigit = number % 10;
+                numberToCheck = number / 10;
+
+                while (numberToCheck > 0)
                 {
-                    numberOfTwosPowers += 1;
+                    if (numberToCheck % 10 > prevDigit)
+                    {
+                        isDecOrder = false;
+                        break;
+                    }
+
+                    prevDigit = numberToCheck % 10;
+                    numberToCheck = numberToCheck / 10;
+                }
+
+                if (isDecOrder)
+                {
+                    countDecOrder++;
                 }
             }
 
-            return numberOfTwosPowers;
+            return countDecOrder;
         }
 
         static int countPalindrome(int[] i_IntegerNumbersArray)
