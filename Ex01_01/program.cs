@@ -123,76 +123,71 @@ namespace Ex01_01
 
         static int countPowersOfTwo(int[] i_IntegerNumbersArray)
         {
-            int numberOfTwosPowers = 0;
+            int countTwosPowers = 0;
 
             foreach (int number in i_IntegerNumbersArray)
             {
-                if ((number != 0) && ((number & (number - 1)) == 0))
+                if (countDigitAppearanceInNumber('1', number) == 1)
                 {
-                    numberOfTwosPowers += 1;
+                    countTwosPowers += 1;
                 }
             }
 
-            return numberOfTwosPowers;
+            return countTwosPowers;
         }
 
         static int zeroesAverage(int[] i_IntegerNumbersArray)
         {
-            int numberOfTwosPowers = 0;
+            int countOnes = 0;
 
             foreach (int number in i_IntegerNumbersArray)
             {
-                if ((number != 0) && ((number & (number - 1)) == 0))
-                {
-                    numberOfTwosPowers += 1;
-                }
+                countOnes += countDigitAppearanceInNumber('0', number);
             }
 
-            return numberOfTwosPowers;
+            return countOnes / i_IntegerNumbersArray.Length;
         }
 
         static int onesAverage(int[] i_IntegerNumbersArray)
         {
-            int numberOfTwosPowers = 0;
+            int countOnes = 0;
 
             foreach (int number in i_IntegerNumbersArray)
             {
-                if ((number != 0) && ((number & (number - 1)) == 0))
-                {
-                    numberOfTwosPowers += 1;
-                }
+                countOnes += countDigitAppearanceInNumber('1', number);
             }
 
-            return numberOfTwosPowers;
+            return countOnes / i_IntegerNumbersArray.Length;
         }
 
         static int countDigitAppearanceInNumber(char i_Digit, int i_OriginalNumber)
         {
             int countAppearance = 0;
 
-            foreach (char c in i_StringToCheck)
+            foreach (char c in i_OriginalNumber.ToString())
             {
-                if (c != '0' && c != '1')
+                if (c == i_Digit)
                 {
-                    representBinary = false;
-                    break;
+                    countAppearance += 1;
                 }
             }
+
+            return countAppearance;
         }
 
         static int countDevidedByFour(int[] i_IntegerNumbersArray)
         {
-            int numberOfTwosPowers = 0;
+            int countFourMultiples = 0;
 
             foreach (int number in i_IntegerNumbersArray)
             {
-                if ((number != 0) && ((number & (number - 1)) == 0))
+                if (number % 4 == 0)
                 {
-                    numberOfTwosPowers += 1;
+                    countFourMultiples += 1;
                 }
             }
 
-            return numberOfTwosPowers;
+            return countFourMultiples;
         }
 
         static int countDecOrder(int[] i_IntegerNumbersArray)
@@ -212,17 +207,35 @@ namespace Ex01_01
 
         static int countPalindrome(int[] i_IntegerNumbersArray)
         {
-            int numberOfTwosPowers = 0;
+            int numberOfPalindromes = 0;
 
             foreach (int number in i_IntegerNumbersArray)
             {
-                if ((number != 0) && ((number & (number - 1)) == 0))
+                if (isPalidrome(number.ToString()))
                 {
-                    numberOfTwosPowers += 1;
+                    numberOfPalindromes++;
                 }
             }
 
-            return numberOfTwosPowers;
+            return numberOfPalindromes;
+        }
+
+        static bool isPalidrome(string i_InputToCheck)
+        {
+            bool firstAndLastEquals = true;
+            bool wrapAPalindrome = true;
+
+            int inputFirstIndex = 0;
+            int inputLastIndex = i_InputToCheck.Length - 1;
+
+            if (i_InputToCheck.Length > 1)
+            {
+                firstAndLastEquals = (i_InputToCheck[inputFirstIndex] == i_InputToCheck[inputLastIndex]);
+                wrapAPalindrome = isPalidrome(i_InputToCheck.Substring(inputFirstIndex + 1, inputLastIndex - 1));
+            }
+
+            return firstAndLastEquals && wrapAPalindrome;
+
         }
     }
 }
