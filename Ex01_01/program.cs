@@ -201,7 +201,7 @@ namespace Ex01_01
 
                 while (numberToCheck > 0)
                 {
-                    if (numberToCheck % 10 > prevDigit)
+                    if (numberToCheck % 10 < prevDigit)
                     {
                         isDecOrder = false;
                         break;
@@ -239,7 +239,6 @@ namespace Ex01_01
         {
             bool firstAndLastEquals = true;
             bool wrapAPalindrome = true;
-
             int inputFirstIndex = 0;
             int inputLastIndex = i_InputToCheck.Length - 1;
 
@@ -250,7 +249,6 @@ namespace Ex01_01
             }
 
             return firstAndLastEquals && wrapAPalindrome;
-
         }
     }
 }
