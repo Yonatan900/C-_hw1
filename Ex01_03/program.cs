@@ -21,18 +21,18 @@ namespace Ex01_03
 
         static int GetMaxAsterisk()
         {
-            int o_NumberOfLines;
+            int numberOfLines;
             string numberOfLinesString;
 
             Console.WriteLine("Enter number of lines");
             numberOfLinesString = Console.ReadLine();
 
-            while (!int.TryParse(numberOfLinesString, out o_NumberOfLines))
+            while (!int.TryParse(numberOfLinesString, out numberOfLines))
             {
                 Console.WriteLine("Only number please.");
             }
 
-            return o_NumberOfLines;
+            return numberOfLines;
         }
     }
 }
